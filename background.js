@@ -1,10 +1,14 @@
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-    if (changeInfo.url) {
-      console.log(`URL changed to: ${changeInfo.url}`);
-      const visitTime = new Date().toISOString(); // Get current datetime in ISO format
+    if (changeInfo.status === 'complete' && tab.active) { // Check if the page is fully loaded and tab is active
+      const visitTime = new Date().toISOString();
       chrome.storage.local.get({visits: []}, (result) => {
-        const updatedVisits = [...result.visits, {url: changeInfo.url, datetime: visitTime}];
-        chrome.storage.local.set({visits: updatedVisits});
+        // Check if the URL is already in the list
+        const exists = result.visits.some(visit => visit.url === tab.url);
+        if (!exists) {
+          // If not, add it to the list
+          const updatedVisits = [...result.visits, {url: tab.url, datetime: visitTime}];
+          chrome.storage.local.set({visits: updatedVisits});
+        }
       });
     }
   });
