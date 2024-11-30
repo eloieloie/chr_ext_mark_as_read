@@ -13,7 +13,7 @@ body:
       label: Severity
       description: Select the severity level of the issue.
       options:
-        - PLACEHOLDER
+                - Critical
     validations:
       required: true
   - type: textarea
