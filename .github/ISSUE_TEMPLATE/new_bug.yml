@@ -1,17 +1,17 @@
 name: Bug Report
-description: Use this form to report bugs.
+description: Submit a bug report using this form.
 title: "[Bug]: "
 labels: ["bug"]
 body:
   - type: markdown
     attributes:
       value: |
-        Please provide the necessary details about the bug.
-  - type: select
+        Please complete all the required fields below.
+  - type: dropdown
     id: severity
     attributes:
-      label: Severity Level
-      description: How severe is the bug?
+      label: Severity
+      description: Select the severity level of the issue.
       options:
         - Critical
         - High
@@ -23,4 +23,7 @@ body:
     id: description
     attributes:
       label: Description
-      description: Provide a detailed description of the bug.
+      description: Provide a detailed explanation of the issue.
+      placeholder: Describe the bug in detail...
+      value: >
+        Example: Steps to reproduce the bug, environment, etc.
