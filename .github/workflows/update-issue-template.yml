@@ -1,0 +1,31 @@
+name: Update Issue Template
+
+on:
+  push:
+    paths:
+      - dropdown-options.txt
+
+jobs:
+  update-template:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Read options from file
+        id: read_options
+        run: |
+          options=$(cat dropdown-options.txt | sed 's/^/        - /')
+          echo "::set-output name=options::$options"
+
+      - name: Update issue template
+        run: |
+          sed "s/- PLACEHOLDER/${{ steps.read_options.outputs.options }}/" \
+          .github/ISSUE_TEMPLATE/bug_report.yml > temp.yml
+          mv temp.yml .github/ISSUE_TEMPLATE/bug_report.yml
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "Update issue template with new dropdown options"
+          branch: ${{ github.ref }}
