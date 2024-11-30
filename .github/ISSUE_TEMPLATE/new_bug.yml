@@ -1,0 +1,26 @@
+name: Bug Report
+description: Use this form to report bugs.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please provide the necessary details about the bug.
+  - type: select
+    id: severity
+    attributes:
+      label: Severity Level
+      description: How severe is the bug?
+      options:
+        - Critical
+        - High
+        - Medium
+        - Low
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Provide a detailed description of the bug.
